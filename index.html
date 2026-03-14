@@ -1,50 +1,117 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Horoscope – MarcoMedium</title>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
-
 <style>
-#marco-horo * { box-sizing: border-box; margin: 0; padding: 0; }
-#marco-horo {
-  font-family: 'Cormorant Garamond', serif;
-  background: linear-gradient(135deg, #120d24, #1c1535);
-  border: 1px solid rgba(201,168,76,0.25);
-  border-radius: 6px;
-  padding: 36px 32px;
-  max-width: 620px;
-  margin: 0 auto;
-  color: #e8dfc8;
-}
-#marco-horo .ornament { text-align:center; font-size:1.3rem; color:#7a5f25; letter-spacing:0.6em; margin-bottom:28px; }
-#marco-horo label { display:block; font-family:'Cinzel Decorative',cursive; font-size:0.68rem; letter-spacing:0.22em; text-transform:uppercase; color:#c9a84c; margin-bottom:9px; }
-#marco-horo select, #marco-horo input[type=text] { width:100%; padding:13px 16px; background:rgba(6,4,15,0.7); border:1px solid rgba(201,168,76,0.28); border-radius:3px; color:#e8dfc8; font-family:'Cormorant Garamond',serif; font-size:1rem; outline:none; appearance:none; -webkit-appearance:none; margin-bottom:20px; }
-#marco-horo select option { background:#0b0818; }
-#marco-horo .period-row { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:20px; }
-#marco-horo .pbtn { padding:13px 8px; background:rgba(6,4,15,0.6); border:1px solid rgba(201,168,76,0.2); border-radius:3px; color:#8a7d6a; font-family:'Cormorant Garamond',serif; font-size:0.95rem; cursor:pointer; text-align:center; transition:all .3s; }
-#marco-horo .pbtn.active { background:rgba(201,168,76,0.1); border-color:#c9a84c; color:#c9a84c; }
-#marco-horo .divider { display:flex; align-items:center; gap:12px; margin:24px 0; color:#7a5f25; }
-#marco-horo .divider::before, #marco-horo .divider::after { content:''; flex:1; height:1px; background:linear-gradient(90deg,transparent,rgba(201,168,76,.3),transparent); }
-#marco-horo .submit-btn { width:100%; padding:16px; background:transparent; border:1px solid #c9a84c; border-radius:3px; color:#c9a84c; font-family:'Cinzel Decorative',cursive; font-size:0.85rem; letter-spacing:.15em; cursor:pointer; }
-#marco-horo .loading { display:none; text-align:center; padding:32px 0; }
-#marco-horo .ball { font-size:2.6rem; display:block; margin-bottom:12px; animation:mhfloat 2s ease-in-out infinite; }
-@keyframes mhfloat { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-7px)} }
-#marco-horo .load-txt { font-style:italic; color:#8a7d6a; }
-#marco-horo .erreur { display:none; padding:13px 15px; margin-top:14px; border:1px solid rgba(220,80,80,.4); border-radius:3px; background:rgba(220,80,80,.07); color:#e08888; font-style:italic; }
-#marco-horo .result { display:none; margin-top:28px; }
-#marco-horo .res-head { display:flex; align-items:center; gap:14px; margin-bottom:18px; }
-#marco-horo .res-sign { font-size:2.4rem; }
-#marco-horo .res-name { font-family:'Cinzel Decorative',cursive; font-size:1rem; color:#c9a84c; }
-#marco-horo .res-period { font-style:italic; color:#8a7d6a; font-size:.85rem; }
-#marco-horo .horo-txt { font-size:1.1rem; line-height:1.85; font-style:italic; border-left:2px solid rgba(201,168,76,.3); padding-left:18px; margin-bottom:20px; }
-#marco-horo .domains { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-bottom:20px; }
-#marco-horo .dom { background:rgba(6,4,15,.5); border:1px solid rgba(201,168,76,.15); border-radius:3px; padding:12px 8px; text-align:center; }
-#marco-horo .dom-icon { font-size:1.2rem; display:block; margin-bottom:5px; }
-#marco-horo .dom-name { font-size:.62rem; letter-spacing:.12em; text-transform:uppercase; color:#8a7d6a; margin-bottom:5px; }
-#marco-horo .dom-stars { color:#c9a84c; font-size:.65rem; }
-#marco-horo .conseil { padding:14px; border:1px solid rgba(201,168,76,.15); border-radius:3px; text-align:center; margin-bottom:20px; }
-#marco-horo .conseil-lbl { font-size:.65rem; letter-spacing:.2em; text-transform:uppercase; color:#7a5f25; }
-#marco-horo .conseil-txt { margin-top:7px; font-style:italic; color:#8a7d6a; }
-#marco-horo .retry { display:block; margin:0 auto; padding:9px 24px; background:transparent; border:1px solid rgba(201,168,76,.3); border-radius:3px; color:#8a7d6a; font-family:'Cormorant Garamond',serif; cursor:pointer; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    background: #3d1560;
+    font-family: 'Cormorant Garamond', serif;
+    min-height: 100vh;
+    padding: 40px 20px;
+  }
+  .card {
+    background: linear-gradient(135deg, #4a1a6b, #3a1255);
+    border: 1px solid rgba(201,168,224,0.3);
+    border-radius: 8px;
+    padding: 40px 36px;
+    max-width: 640px;
+    margin: 0 auto;
+    color: #f0e6ff;
+    box-shadow: 0 0 60px rgba(100,30,160,0.3);
+  }
+  .ornament {
+    text-align: center;
+    font-size: 1.3rem;
+    color: rgba(201,168,224,0.5);
+    letter-spacing: 0.6em;
+    margin-bottom: 32px;
+  }
+  label {
+    display: block;
+    font-family: 'Cinzel Decorative', cursive;
+    font-size: 0.68rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #c9a8e0;
+    margin-bottom: 9px;
+  }
+  select, input[type=text] {
+    width: 100%;
+    padding: 13px 16px;
+    background: rgba(30,5,60,0.6);
+    border: 1px solid rgba(201,168,224,0.3);
+    border-radius: 4px;
+    color: #f0e6ff;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1rem;
+    outline: none;
+    appearance: none;
+    -webkit-appearance: none;
+    margin-bottom: 22px;
+    transition: border-color .3s;
+  }
+  select:focus, input:focus { border-color: #c9a8e0; }
+  select option { background: #3a1255; }
+  .period-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 22px; }
+  .pbtn {
+    padding: 13px 8px;
+    background: rgba(30,5,60,0.6);
+    border: 1px solid rgba(201,168,224,0.25);
+    border-radius: 4px;
+    color: rgba(201,168,224,0.6);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.95rem;
+    cursor: pointer;
+    text-align: center;
+    transition: all .3s;
+  }
+  .pbtn.active { background: rgba(201,168,224,0.15); border-color: #c9a8e0; color: #c9a8e0; }
+  .divider { display:flex; align-items:center; gap:12px; margin:24px 0; color:rgba(201,168,224,0.4); }
+  .divider::before, .divider::after { content:''; flex:1; height:1px; background:linear-gradient(90deg,transparent,rgba(201,168,224,.3),transparent); }
+  .submit-btn {
+    width: 100%; padding: 16px;
+    background: transparent;
+    border: 1px solid #c9a8e0;
+    border-radius: 4px;
+    color: #c9a8e0;
+    font-family: 'Cinzel Decorative', cursive;
+    font-size: 0.85rem;
+    letter-spacing: .15em;
+    cursor: pointer;
+    transition: all .4s;
+  }
+  .submit-btn:hover { background: rgba(201,168,224,0.1); box-shadow: 0 0 25px rgba(201,168,224,0.2); }
+  .loading { display:none; text-align:center; padding:40px 0; }
+  .ball { font-size:3rem; display:block; margin-bottom:14px; animation:float 2s ease-in-out infinite; }
+  @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+  .load-txt { font-style:italic; color:rgba(201,168,224,0.7); animation:fade 1.5s ease-in-out infinite; }
+  @keyframes fade { 0%,100%{opacity:.4} 50%{opacity:1} }
+  .erreur { display:none; padding:13px 15px; margin-top:14px; border:1px solid rgba(220,80,80,.4); border-radius:4px; background:rgba(220,80,80,.07); color:#e08888; font-style:italic; }
+  .result { display:none; margin-top:28px; animation:reveal .7s ease; }
+  @keyframes reveal { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:translateY(0)} }
+  .res-head { display:flex; align-items:center; gap:14px; margin-bottom:20px; }
+  .res-sign { font-size:2.6rem; }
+  .res-name { font-family:'Cinzel Decorative',cursive; font-size:1rem; color:#c9a8e0; }
+  .res-period { font-style:italic; color:rgba(201,168,224,0.6); font-size:.85rem; }
+  .horo-txt { font-size:1.12rem; line-height:1.9; font-style:italic; border-left:2px solid rgba(201,168,224,0.3); padding-left:18px; margin-bottom:22px; color:#f0e6ff; }
+  .domains { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-bottom:22px; }
+  .dom { background:rgba(30,5,60,0.5); border:1px solid rgba(201,168,224,0.2); border-radius:4px; padding:14px 8px; text-align:center; }
+  .dom-icon { font-size:1.3rem; display:block; margin-bottom:6px; }
+  .dom-name { font-size:.62rem; letter-spacing:.12em; text-transform:uppercase; color:rgba(201,168,224,0.6); margin-bottom:6px; }
+  .dom-stars { color:#c9a8e0; font-size:.7rem; }
+  .conseil { padding:16px; border:1px solid rgba(201,168,224,0.2); border-radius:4px; text-align:center; margin-bottom:22px; }
+  .conseil-lbl { font-size:.65rem; letter-spacing:.2em; text-transform:uppercase; color:rgba(201,168,224,0.5); }
+  .conseil-txt { margin-top:8px; font-style:italic; color:rgba(201,168,224,0.8); font-size:1rem; }
+  .retry { display:block; margin:0 auto; padding:10px 28px; background:transparent; border:1px solid rgba(201,168,224,0.3); border-radius:4px; color:rgba(201,168,224,0.6); font-family:'Cormorant Garamond',serif; cursor:pointer; transition:all .3s; font-size:.95rem; letter-spacing:.1em; }
+  .retry:hover { border-color:#c9a8e0; color:#c9a8e0; }
 </style>
-
-<div id="marco-horo">
+</head>
+<body>
+<div class="card">
   <div class="ornament">&#10022; &#10023; &#10022;</div>
   <div id="mh-form">
     <label>Votre Signe Zodiacal</label>
@@ -63,7 +130,7 @@
       <option value="Verseau|Air">&#9810; Verseau (20 janv. &#8211; 18 fev.)</option>
       <option value="Poissons|Eau">&#9811; Poissons (19 fev. &#8211; 20 mars)</option>
     </select>
-    <label>Votre Prenom <span style="color:#8a7d6a;font-size:.6rem;">(optionnel)</span></label>
+    <label>Votre Prenom <span style="color:rgba(201,168,224,0.5);font-size:.6rem;">(optionnel)</span></label>
     <input type="text" id="mh-prenom" placeholder="Pour une lecture personnalisee...">
     <label>Periode de la Lecture</label>
     <div class="period-row">
@@ -80,7 +147,6 @@
   </div>
   <div class="result" id="mh-result"></div>
 </div>
-
 <script>
 (function(){
   var WORKER = "https://super-band-24a0.marcomedium-com.workers.dev";
@@ -94,7 +160,6 @@
     document.getElementById("btn-jour").classList.add("active");
     document.getElementById("btn-semaine").classList.remove("active");
   });
-
   document.getElementById("btn-semaine").addEventListener("click", function(){
     periode = "semaine";
     document.getElementById("btn-semaine").classList.add("active");
@@ -120,7 +185,6 @@
 
     document.getElementById("mh-form").style.display = "none";
     document.getElementById("mh-load").style.display = "block";
-
     var idx = 0;
     loadT = setInterval(function(){
       idx = (idx+1) % MSGS.length;
@@ -167,3 +231,5 @@
   });
 })();
 </script>
+</body>
+</html>
