@@ -3,15 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Roue de la Fortune – MarcoMedium</title>
+<title>Roue MarcoMedium</title>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script>emailjs.init("liRFAyxBo1908cbzF");</script>
 <style>
-/* ══════════════════════════════════
-   OVERLAY DE BASE
-══════════════════════════════════ */
-#marco-popup-overlay {
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  background: transparent;
+  pointer-events: none;
+}
+
+#overlay {
   display: none;
   position: fixed;
   inset: 0;
@@ -21,23 +25,20 @@
   justify-content: center;
   padding: 16px;
   backdrop-filter: blur(4px);
-  animation: fadeOverlay 0.5s ease;
+  pointer-events: all;
 }
-#marco-popup-overlay.visible { display: flex; }
-@keyframes fadeOverlay { from{opacity:0} to{opacity:1} }
+#overlay.on { display: flex; animation: fadeIn 0.5s ease; }
+@keyframes fadeIn { from{opacity:0} to{opacity:1} }
 
-/* ══════════════════════════════════
-   POPUP CARD
-══════════════════════════════════ */
-#marco-popup {
+#popup {
   background: linear-gradient(135deg, #4a1a6b, #2d0850);
   border: 1px solid rgba(201,168,224,0.3);
   border-radius: 16px;
-  padding: 32px 28px;
-  max-width: 480px;
+  padding: 28px 24px;
+  max-width: 520px;
   width: 100%;
   position: relative;
-  box-shadow: 0 0 80px rgba(100,30,160,0.5), 0 0 0 1px rgba(255,255,255,0.05) inset;
+  box-shadow: 0 0 80px rgba(100,30,160,0.5);
   animation: popIn 0.55s cubic-bezier(0.22,1,0.36,1);
   max-height: 95vh;
   overflow-y: auto;
@@ -47,637 +48,430 @@
   to   { opacity:1; transform:scale(1) translateY(0); }
 }
 
-/* Fermer */
-#marco-close {
-  position: absolute;
-  top: 14px; right: 18px;
-  background: none; border: none;
-  color: rgba(201,168,224,0.5);
-  font-size: 1.4rem;
-  cursor: pointer;
-  transition: color 0.2s;
-  line-height: 1;
+#btn-close {
+  position: absolute; top:12px; right:16px;
+  background:none; border:none;
+  color:rgba(201,168,224,0.5); font-size:1.3rem;
+  cursor:pointer; line-height:1;
 }
-#marco-close:hover { color: #c9a8e0; }
+#btn-close:hover { color:#c9a8e0; }
 
-/* Étoiles déco */
-.marco-stars {
-  text-align: center;
-  font-size: 1.1rem;
-  color: rgba(201,168,224,0.4);
-  letter-spacing: 0.5em;
-  margin-bottom: 8px;
-}
+/* Étoiles */
+.stars { text-align:center; font-size:1rem; color:rgba(201,168,224,0.4); letter-spacing:0.5em; margin-bottom:6px; }
 
 /* Titre */
-.marco-titre {
-  font-family: 'Cinzel Decorative', cursive;
-  font-size: clamp(1rem, 4vw, 1.35rem);
-  color: #c9a8e0;
-  text-align: center;
-  margin-bottom: 4px;
-  text-shadow: 0 0 20px rgba(201,168,224,0.4);
-}
-.marco-sous {
-  text-align: center;
-  font-family: 'Cormorant Garamond', serif;
-  font-style: italic;
-  color: rgba(201,168,224,0.65);
-  font-size: 0.95rem;
-  margin-bottom: 20px;
+.titre {
+  font-family:'Cinzel Decorative',cursive;
+  font-size:clamp(0.95rem,3.5vw,1.25rem);
+  color:#c9a8e0; text-align:center;
+  text-shadow:0 0 20px rgba(201,168,224,0.4);
+  margin-bottom:4px;
 }
 
-/* ══════════════════════════════════
-   FORMULAIRE
-══════════════════════════════════ */
-#marco-form-section { }
-#marco-form-section label {
-  display: block;
-  font-family: 'Cinzel Decorative', cursive;
-  font-size: 0.62rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: #c9a8e0;
-  margin-bottom: 6px;
-  margin-top: 12px;
+/* OFFRE EN GRAND */
+.offre-grande {
+  text-align:center;
+  font-family:'Cinzel Decorative',cursive;
+  font-size:clamp(1.2rem,5vw,1.8rem);
+  color:#7dcea0;
+  text-shadow:0 0 25px rgba(125,206,160,0.5);
+  margin: 8px 0 2px;
+  line-height:1.2;
 }
-#marco-form-section input {
-  width: 100%;
-  padding: 11px 14px;
-  background: rgba(6,4,15,0.6);
-  border: 1px solid rgba(201,168,224,0.25);
-  border-radius: 4px;
-  color: #f0e6ff;
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1rem;
-  outline: none;
-  transition: border-color 0.3s;
-}
-#marco-form-section input:focus { border-color: #c9a8e0; }
-
-.marco-conditions {
-  margin-top: 14px;
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 0.8rem;
-  font-style: italic;
-  color: rgba(201,168,224,0.5);
-  text-align: center;
-  line-height: 1.5;
+.offre-petite {
+  text-align:center;
+  font-family:'Cormorant Garamond',serif;
+  font-style:italic;
+  font-size:0.78rem;
+  color:rgba(201,168,224,0.45);
+  margin-bottom:16px;
 }
 
-.marco-btn {
-  width: 100%;
-  margin-top: 16px;
-  padding: 14px;
-  background: transparent;
-  border: 1px solid #c9a8e0;
-  border-radius: 4px;
-  color: #c9a8e0;
-  font-family: 'Cinzel Decorative', cursive;
-  font-size: 0.8rem;
-  letter-spacing: 0.12em;
-  cursor: pointer;
-  transition: all 0.3s;
+/* Layout 2 colonnes */
+.layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  align-items: start;
 }
-.marco-btn:hover { background: rgba(201,168,224,0.1); box-shadow: 0 0 20px rgba(201,168,224,0.2); }
-
-.marco-err {
-  display: none;
-  color: #e08888;
-  font-style: italic;
-  font-size: 0.85rem;
-  text-align: center;
-  margin-top: 8px;
+@media (max-width:480px) {
+  .layout { grid-template-columns:1fr; }
 }
-.marco-err.on { display: block; }
 
-/* ══════════════════════════════════
-   ROUE
-══════════════════════════════════ */
-#marco-wheel-section { display: none; text-align: center; }
-
+/* ── ROUE ── */
+.wheel-col { display:flex; flex-direction:column; align-items:center; }
 .wheel-wrap {
-  position: relative;
-  width: 260px;
-  height: 260px;
-  margin: 0 auto 20px;
+  position:relative;
+  width:200px; height:200px;
+  margin-bottom:12px;
 }
-
-#marco-canvas {
-  border-radius: 50%;
-  box-shadow: 0 0 40px rgba(201,168,224,0.25), 0 0 0 4px rgba(201,168,224,0.2);
+#roue-canvas {
+  border-radius:50%;
+  box-shadow:0 0 30px rgba(201,168,224,0.2), 0 0 0 3px rgba(201,168,224,0.15);
 }
-
-/* Flèche indicatrice */
-.wheel-arrow {
-  position: absolute;
-  top: -18px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 0;
-  height: 0;
-  border-left: 12px solid transparent;
-  border-right: 12px solid transparent;
-  border-top: 22px solid #c9a8e0;
-  filter: drop-shadow(0 0 6px rgba(201,168,224,0.6));
+.arrow {
+  position:absolute; top:-14px; left:50%;
+  transform:translateX(-50%);
+  width:0; height:0;
+  border-left:10px solid transparent;
+  border-right:10px solid transparent;
+  border-top:18px solid #c9a8e0;
+  filter:drop-shadow(0 0 5px rgba(201,168,224,0.6));
 }
-
-/* Centre roue */
 .wheel-center {
-  position: absolute;
-  top: 50%; left: 50%;
-  transform: translate(-50%,-50%);
-  width: 44px; height: 44px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #c9a8e0, #8a6aaa);
-  border: 3px solid rgba(255,255,255,0.3);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 1.2rem;
-  box-shadow: 0 0 15px rgba(201,168,224,0.4);
-  cursor: pointer;
+  position:absolute; top:50%; left:50%;
+  transform:translate(-50%,-50%);
+  width:38px; height:38px;
+  border-radius:50%;
+  background:linear-gradient(135deg,#c9a8e0,#8a6aaa);
+  border:2px solid rgba(255,255,255,0.3);
+  display:flex; align-items:center; justify-content:center;
+  font-size:1rem;
 }
 
-.marco-spin-btn {
-  padding: 13px 36px;
-  background: transparent;
-  border: 1px solid #c9a8e0;
-  border-radius: 4px;
-  color: #c9a8e0;
-  font-family: 'Cinzel Decorative', cursive;
-  font-size: 0.8rem;
-  letter-spacing: 0.12em;
-  cursor: pointer;
-  transition: all 0.3s;
-  margin-bottom: 8px;
+/* ── FORMULAIRE ── */
+.form-col {}
+.form-col label {
+  display:block;
+  font-family:'Cinzel Decorative',cursive;
+  font-size:0.58rem;
+  letter-spacing:0.15em;
+  text-transform:uppercase;
+  color:#c9a8e0;
+  margin-bottom:4px;
+  margin-top:10px;
 }
-.marco-spin-btn:hover { background: rgba(201,168,224,0.1); }
-.marco-spin-btn:disabled { opacity: 0.4; cursor: default; }
+.form-col label:first-child { margin-top:0; }
+.form-col input {
+  width:100%;
+  padding:9px 12px;
+  background:rgba(6,4,15,0.6);
+  border:1px solid rgba(201,168,224,0.25);
+  border-radius:4px;
+  color:#f0e6ff;
+  font-family:'Cormorant Garamond',serif;
+  font-size:0.95rem;
+  outline:none;
+  transition:border-color 0.3s;
+}
+.form-col input:focus { border-color:#c9a8e0; }
 
-/* ══════════════════════════════════
-   RÉSULTAT
-══════════════════════════════════ */
-#marco-result-section { display: none; text-align: center; }
+/* Bouton spin */
+.btn-spin {
+  width:100%;
+  margin-top:14px;
+  padding:13px;
+  background:transparent;
+  border:1px solid #c9a8e0;
+  border-radius:4px;
+  color:#c9a8e0;
+  font-family:'Cinzel Decorative',cursive;
+  font-size:0.75rem;
+  letter-spacing:0.1em;
+  cursor:pointer;
+  transition:all 0.3s;
+}
+.btn-spin:hover { background:rgba(201,168,224,0.1); box-shadow:0 0 20px rgba(201,168,224,0.2); }
+.btn-spin:disabled { opacity:0.35; cursor:default; }
 
-.result-icon { font-size: 3rem; margin-bottom: 12px; display: block; }
+.err {
+  display:none; color:#e08888;
+  font-style:italic; font-size:0.8rem;
+  text-align:center; margin-top:6px;
+  font-family:'Cormorant Garamond',serif;
+}
+.err.on { display:block; }
 
-.result-titre {
-  font-family: 'Cinzel Decorative', cursive;
-  font-size: 1.1rem;
-  margin-bottom: 10px;
-}
-.result-titre.gagne { color: #7dcea0; text-shadow: 0 0 20px rgba(125,206,160,0.4); }
-.result-titre.perdu { color: #c9a8e0; }
-
-.result-txt {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1rem;
-  font-style: italic;
-  color: rgba(240,230,255,0.85);
-  line-height: 1.7;
-  margin-bottom: 16px;
-}
-
-/* Code promo */
-.code-box {
-  background: rgba(6,4,15,0.6);
-  border: 1px solid rgba(125,206,160,0.4);
-  border-radius: 6px;
-  padding: 16px;
-  margin: 16px 0;
-}
-.code-lbl {
-  font-family: 'Cinzel Decorative', cursive;
-  font-size: 0.62rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: rgba(125,206,160,0.7);
-  margin-bottom: 8px;
-}
-.code-val {
-  font-family: 'Cinzel Decorative', cursive;
-  font-size: 1.6rem;
-  color: #7dcea0;
-  letter-spacing: 0.15em;
-  text-shadow: 0 0 15px rgba(125,206,160,0.4);
-}
-.code-copy {
-  margin-top: 10px;
-  padding: 8px 20px;
-  background: transparent;
-  border: 1px solid rgba(125,206,160,0.4);
-  border-radius: 3px;
-  color: rgba(125,206,160,0.8);
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 0.85rem;
-  cursor: pointer;
-  transition: all 0.3s;
-}
-.code-copy:hover { background: rgba(125,206,160,0.1); }
-
-.code-conditions {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 0.78rem;
-  font-style: italic;
-  color: rgba(201,168,224,0.4);
-  line-height: 1.5;
-  margin-top: 8px;
+.conditions {
+  font-family:'Cormorant Garamond',serif;
+  font-style:italic; font-size:0.72rem;
+  color:rgba(201,168,224,0.4);
+  text-align:center; margin-top:10px;
+  line-height:1.5;
 }
 
-.marco-fermer {
-  margin-top: 16px;
-  padding: 11px 28px;
-  background: transparent;
-  border: 1px solid rgba(201,168,224,0.3);
-  border-radius: 4px;
-  color: rgba(201,168,224,0.6);
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 0.9rem;
-  cursor: pointer;
-  transition: all 0.3s;
-}
-.marco-fermer:hover { border-color: #c9a8e0; color: #c9a8e0; }
+/* ── RÉSULTAT ── */
+#result-section { display:none; text-align:center; }
+.result-icon { font-size:2.8rem; margin-bottom:10px; display:block; }
+.result-titre { font-family:'Cinzel Decorative',cursive; font-size:1rem; margin-bottom:8px; }
+.result-titre.gagne { color:#7dcea0; text-shadow:0 0 20px rgba(125,206,160,0.4); }
+.result-titre.perdu { color:#c9a8e0; }
+.result-txt { font-family:'Cormorant Garamond',serif; font-size:0.95rem; font-style:italic; color:rgba(240,230,255,0.85); line-height:1.7; margin-bottom:14px; }
+
+.code-box { background:rgba(6,4,15,0.6); border:1px solid rgba(125,206,160,0.4); border-radius:6px; padding:14px; margin:12px 0; }
+.code-lbl { font-family:'Cinzel Decorative',cursive; font-size:0.58rem; letter-spacing:0.18em; text-transform:uppercase; color:rgba(125,206,160,0.7); margin-bottom:6px; }
+.code-val { font-family:'Cinzel Decorative',cursive; font-size:1.4rem; color:#7dcea0; letter-spacing:0.15em; text-shadow:0 0 12px rgba(125,206,160,0.4); }
+.btn-copy { margin-top:8px; padding:7px 18px; background:transparent; border:1px solid rgba(125,206,160,0.4); border-radius:3px; color:rgba(125,206,160,0.8); font-family:'Cormorant Garamond',serif; font-size:0.82rem; cursor:pointer; transition:all 0.3s; }
+.btn-copy:hover { background:rgba(125,206,160,0.1); }
+.code-cond { font-family:'Cormorant Garamond',serif; font-size:0.72rem; font-style:italic; color:rgba(201,168,224,0.4); margin-top:6px; line-height:1.4; }
+
+.btn-fermer { margin-top:14px; padding:10px 24px; background:transparent; border:1px solid rgba(201,168,224,0.3); border-radius:4px; color:rgba(201,168,224,0.6); font-family:'Cormorant Garamond',serif; font-size:0.9rem; cursor:pointer; transition:all 0.3s; }
+.btn-fermer:hover { border-color:#c9a8e0; color:#c9a8e0; }
 
 /* Confettis */
-.confetti-wrap {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  overflow: hidden;
-  border-radius: 16px;
-}
-.confetti {
-  position: absolute;
-  width: 8px; height: 8px;
-  border-radius: 2px;
-  animation: confettifall 1.8s ease-in forwards;
-}
-@keyframes confettifall {
-  0%   { transform: translateY(-20px) rotate(0deg); opacity: 1; }
-  100% { transform: translateY(400px) rotate(720deg); opacity: 0; }
-}
-
-@media (max-width: 480px) {
-  #marco-popup { padding: 24px 18px; }
-  .wheel-wrap { width: 220px; height: 220px; }
-  #marco-canvas { width: 220px !important; height: 220px !important; }
-}
+.confetti-wrap { position:absolute; inset:0; pointer-events:none; overflow:hidden; border-radius:16px; }
+.confetti { position:absolute; width:7px; height:7px; border-radius:2px; animation:cfall 1.8s ease-in forwards; }
+@keyframes cfall { 0%{transform:translateY(-20px) rotate(0deg);opacity:1} 100%{transform:translateY(400px) rotate(720deg);opacity:0} }
 </style>
 </head>
 <body>
 
-<!-- ══ POPUP ══ -->
-<div id="marco-popup-overlay">
-  <div id="marco-popup">
-    <button id="marco-close" onclick="marcoClose()">&#x2715;</button>
-    <div class="confetti-wrap" id="confettiWrap"></div>
+<div id="overlay">
+  <div id="popup">
+    <button id="btn-close" onclick="fermer()">&#x2715;</button>
+    <div class="confetti-wrap" id="confetti"></div>
 
-    <div class="marco-stars">&#10022; &#10023; &#10022;</div>
-    <h2 class="marco-titre">Tentez Votre Chance !</h2>
-    <p class="marco-sous">Faites tourner la roue et gagnez 5 minutes offertes avec Marco</p>
+    <div class="stars">&#10022; &#10023; &#10022;</div>
+    <h2 class="titre">Tentez Votre Chance !</h2>
+    <div class="offre-grande">5 Minutes Offertes</div>
+    <div class="offre-petite">* Offre valable à l'achat d'une consultation de CHF 20.- minimum</div>
 
-    <!-- ÉTAPE 1 : Formulaire -->
-    <div id="marco-form-section">
-      <label>Prénom</label>
-      <input type="text" id="mp-prenom" placeholder="Votre prénom...">
-      <label>Nom</label>
-      <input type="text" id="mp-nom" placeholder="Votre nom...">
-      <label>Email</label>
-      <input type="email" id="mp-email" placeholder="votre@email.com">
-      <label>Date de naissance</label>
-      <input type="date" id="mp-ddn">
-      <p class="marco-conditions">
-        ✦ 1 participation par jour · Non cumulable · Valable pour une consultation de 10 min minimum (CHF 20.-)
-      </p>
-      <div class="marco-err" id="mp-err"></div>
-      <button class="marco-btn" id="mp-go" onclick="marcoValider()">✧ Faire Tourner la Roue ✧</button>
-    </div>
+    <!-- FORMULAIRE + ROUE -->
+    <div id="main-section">
+      <div class="layout">
 
-    <!-- ÉTAPE 2 : Roue -->
-    <div id="marco-wheel-section">
-      <div class="wheel-wrap">
-        <div class="wheel-arrow"></div>
-        <canvas id="marco-canvas" width="260" height="260"></canvas>
-        <div class="wheel-center">🔮</div>
+        <!-- Roue -->
+        <div class="wheel-col">
+          <div class="wheel-wrap">
+            <div class="arrow"></div>
+            <canvas id="roue-canvas" width="200" height="200"></canvas>
+            <div class="wheel-center">🔮</div>
+          </div>
+          <p style="font-family:'Cormorant Garamond',serif;font-style:italic;color:rgba(201,168,224,0.5);font-size:0.78rem;text-align:center;">Remplissez le formulaire<br>puis lancez la roue !</p>
+        </div>
+
+        <!-- Formulaire -->
+        <div class="form-col">
+          <label>Prénom</label>
+          <input type="text" id="f-prenom" placeholder="Votre prénom...">
+          <label>Nom</label>
+          <input type="text" id="f-nom" placeholder="Votre nom...">
+          <label>Email</label>
+          <input type="email" id="f-email" placeholder="votre@email.com">
+          <label>Date de naissance</label>
+          <input type="date" id="f-ddn">
+          <div class="err" id="f-err"></div>
+          <button class="btn-spin" id="btn-spin" onclick="lancer()">✧ Lancer la Roue ✧</button>
+        </div>
+
       </div>
-      <button class="marco-spin-btn" id="mp-spin" onclick="marcoSpin()">✧ Lancer la Roue ✧</button>
-      <p style="font-family:'Cormorant Garamond',serif;font-style:italic;color:rgba(201,168,224,0.5);font-size:0.85rem;">Concentrez-vous et cliquez !</p>
+      <p class="conditions">✦ 1 participation par jour · Non cumulable · Valable 30 jours</p>
     </div>
 
-    <!-- ÉTAPE 3 : Résultat -->
-    <div id="marco-result-section"></div>
+    <!-- RÉSULTAT -->
+    <div id="result-section"></div>
   </div>
 </div>
 
 <script>
 (function(){
-
-  // ══ CONFIG ══
-  var SITE = "marcomedium.com";
+  var EMAILJS_SERVICE  = "service_8pt08ad";
+  var EMAILJS_TEMPLATE = "template_7qvb6yz";
   var STORAGE_KEY = "marco_roue_";
 
-  // 8 cases : 2 Gagné (indices 1 et 5) / 6 Perdu
   var SEGMENTS = [
-    { label: "Perdu",  gagne: false, color: "#2d0d50" },
-    { label: "Gagné!", gagne: true,  color: "#1a4a2e" },
-    { label: "Perdu",  gagne: false, color: "#3a1255" },
-    { label: "Perdu",  gagne: false, color: "#200840" },
-    { label: "Perdu",  gagne: false, color: "#2d0d50" },
-    { label: "Gagné!", gagne: true,  color: "#1a4a2e" },
-    { label: "Perdu",  gagne: false, color: "#3a1255" },
-    { label: "Perdu",  gagne: false, color: "#200840" },
+    { label:"Perdu",  gagne:false, color:"#2d0d50" },
+    { label:"Gagné!", gagne:true,  color:"#1a4a2e" },
+    { label:"Perdu",  gagne:false, color:"#3a1255" },
+    { label:"Perdu",  gagne:false, color:"#200840" },
+    { label:"Perdu",  gagne:false, color:"#2d0d50" },
+    { label:"Gagné!", gagne:true,  color:"#1a4a2e" },
+    { label:"Perdu",  gagne:false, color:"#3a1255" },
+    { label:"Perdu",  gagne:false, color:"#200840" },
   ];
 
   var N = SEGMENTS.length;
   var arc = (2 * Math.PI) / N;
+  var angle = 0;
   var spinning = false;
-  var currentAngle = 0;
   var userData = {};
 
-  // ══ VÉRIFICATION 1 FOIS PAR JOUR ══
-  function getTodayKey() {
+  function todayKey() {
     var d = new Date();
     return STORAGE_KEY + d.getFullYear() + "-" + (d.getMonth()+1) + "-" + d.getDate();
   }
+  function dejaJoue() { return localStorage.getItem(todayKey()) !== null; }
+  function marquerJoue(g, c) { localStorage.setItem(todayKey(), JSON.stringify({gagne:g,code:c||""})); }
 
-  function aDejaJoue() {
-    return localStorage.getItem(getTodayKey()) !== null;
-  }
-
-  function marquerJoue(gagne, code) {
-    localStorage.setItem(getTodayKey(), JSON.stringify({ gagne: gagne, code: code || "" }));
-  }
-
-  // ══ DESSIN ROUE ══
-  function dessinerRoue(angle) {
-    var canvas = document.getElementById("marco-canvas");
-    var ctx = canvas.getContext("2d");
-    var cx = canvas.width / 2;
-    var cy = canvas.height / 2;
-    var r = cx - 4;
-
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    for (var i = 0; i < N; i++) {
-      var startAngle = angle + i * arc;
-      var endAngle = startAngle + arc;
-
-      // Camembert
-      ctx.beginPath();
-      ctx.moveTo(cx, cy);
-      ctx.arc(cx, cy, r, startAngle, endAngle);
-      ctx.closePath();
-      ctx.fillStyle = SEGMENTS[i].color;
-      ctx.fill();
-      ctx.strokeStyle = "rgba(201,168,224,0.3)";
-      ctx.lineWidth = 1.5;
-      ctx.stroke();
-
-      // Texte
-      ctx.save();
-      ctx.translate(cx, cy);
-      ctx.rotate(startAngle + arc / 2);
+  // ── Dessiner roue ──
+  function dessiner(a) {
+    var cv = document.getElementById("roue-canvas");
+    var ctx = cv.getContext("2d");
+    var cx = cv.width/2, cy = cv.height/2, r = cx - 3;
+    ctx.clearRect(0,0,cv.width,cv.height);
+    for (var i=0; i<N; i++) {
+      var sa = a + i*arc, ea = sa + arc;
+      ctx.beginPath(); ctx.moveTo(cx,cy);
+      ctx.arc(cx,cy,r,sa,ea); ctx.closePath();
+      ctx.fillStyle = SEGMENTS[i].color; ctx.fill();
+      ctx.strokeStyle = "rgba(201,168,224,0.25)"; ctx.lineWidth = 1.2; ctx.stroke();
+      ctx.save(); ctx.translate(cx,cy); ctx.rotate(sa + arc/2);
       ctx.textAlign = "right";
       ctx.fillStyle = SEGMENTS[i].gagne ? "#7dcea0" : "rgba(201,168,224,0.7)";
-      ctx.font = SEGMENTS[i].gagne
-        ? "bold 13px 'Cinzel Decorative', cursive"
-        : "12px 'Cormorant Garamond', serif";
-      ctx.fillText(SEGMENTS[i].label, r - 10, 5);
-      ctx.restore();
-    }
-
-    // Étoiles déco sur les séparateurs
-    for (var j = 0; j < N; j++) {
-      var a = angle + j * arc;
-      ctx.save();
-      ctx.translate(cx, cy);
-      ctx.rotate(a);
-      ctx.fillStyle = "rgba(201,168,224,0.4)";
-      ctx.font = "10px serif";
-      ctx.fillText("✦", r - 6, -4);
+      ctx.font = SEGMENTS[i].gagne ? "bold 11px 'Cinzel Decorative',cursive" : "10px 'Cormorant Garamond',serif";
+      ctx.fillText(SEGMENTS[i].label, r-8, 4);
       ctx.restore();
     }
   }
+  dessiner(angle);
 
-  // ══ GÉNÉRATION CODE PROMO ══
-  function genererCode() {
-    var chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
-    var code = "MARCO-";
-    for (var i = 0; i < 6; i++) {
-      code += chars[Math.floor(Math.random() * chars.length)];
-    }
-    return code;
-  }
-
-  // ══ VALIDATION FORMULAIRE ══
-  window.marcoValider = function() {
-    var prenom = document.getElementById("mp-prenom").value.trim();
-    var nom    = document.getElementById("mp-nom").value.trim();
-    var email  = document.getElementById("mp-email").value.trim();
-    var ddn    = document.getElementById("mp-ddn").value;
-    var err    = document.getElementById("mp-err");
-
-    if (!prenom || !nom || !email || !ddn) {
-      err.textContent = "Veuillez remplir tous les champs.";
-      err.classList.add("on");
-      return;
-    }
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      err.textContent = "Email invalide.";
-      err.classList.add("on");
-      return;
-    }
-
-    err.classList.remove("on");
-    userData = { prenom: prenom, nom: nom, email: email, ddn: ddn };
-
-    document.getElementById("marco-form-section").style.display = "none";
-    document.getElementById("marco-wheel-section").style.display = "block";
-    dessinerRoue(currentAngle);
-  };
-
-  // ══ SPIN ══
-  window.marcoSpin = function() {
+  // ── Lancer ──
+  window.lancer = function() {
     if (spinning) return;
+    var prenom = document.getElementById("f-prenom").value.trim();
+    var nom    = document.getElementById("f-nom").value.trim();
+    var email  = document.getElementById("f-email").value.trim();
+    var ddn    = document.getElementById("f-ddn").value;
+    var err    = document.getElementById("f-err");
+
+    if (!prenom||!nom||!email||!ddn) { err.textContent="Veuillez remplir tous les champs."; err.classList.add("on"); return; }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { err.textContent="Email invalide."; err.classList.add("on"); return; }
+    err.classList.remove("on");
+    userData = {prenom:prenom,nom:nom,email:email,ddn:ddn};
+
+    document.getElementById("btn-spin").disabled = true;
     spinning = true;
-    document.getElementById("mp-spin").disabled = true;
 
-    // Déterminer résultat AVANT l'animation
     var gagne = Math.random() < 0.25;
-
-    // Trouver un segment cible correspondant au résultat
     var cibles = [];
-    for (var i = 0; i < N; i++) {
-      if (SEGMENTS[i].gagne === gagne) cibles.push(i);
-    }
-    var cible = cibles[Math.floor(Math.random() * cibles.length)];
+    for (var i=0;i<N;i++) if(SEGMENTS[i].gagne===gagne) cibles.push(i);
+    var cible = cibles[Math.floor(Math.random()*cibles.length)];
 
-    // La flèche pointe vers le HAUT = angle -PI/2 dans le repère canvas
-    // Pour que le segment cible soit sous la flèche :
-    // L'angle de début du segment cible = cible * arc
-    // On veut que le milieu du segment soit à -PI/2 (flèche en haut)
-    // Donc : currentAngle + totalRotation + cible*arc + arc/2 = -PI/2 + k*2*PI
-    var tours = 5 + Math.floor(Math.random() * 3);
-    var anglePointe = -Math.PI / 2; // flèche en haut
-    var angleCibleMilieu = cible * arc + arc / 2;
-    
-    // On calcule la rotation totale nécessaire
-    var totalRotation = tours * 2 * Math.PI + (anglePointe - angleCibleMilieu - currentAngle);
-    // S'assurer que la rotation est positive et suffisamment grande
-    while (totalRotation < tours * 2 * Math.PI) {
-      totalRotation += 2 * Math.PI;
-    }
+    var tours = 5 + Math.floor(Math.random()*3);
+    var pointe = -Math.PI/2;
+    var cibleAngle = cible*arc + arc/2;
+    var totalRot = tours*2*Math.PI + (pointe - cibleAngle - angle);
+    while (totalRot < tours*2*Math.PI) totalRot += 2*Math.PI;
 
-    var startAngle = currentAngle;
+    var startAngle = angle;
     var duration = 4500;
     var startTime = null;
 
-    function easeOut(t) {
-      return 1 - Math.pow(1 - t, 4);
-    }
+    function ease(t) { return 1 - Math.pow(1-t,4); }
 
-    function lireSegmentActuel(angle) {
-      // Normaliser l'angle
-      var a = ((angle % (2 * Math.PI)) + 2 * Math.PI) % (2 * Math.PI);
-      // La flèche est à -PI/2, soit 3*PI/2 en positif
-      var pointeAngle = (3 * Math.PI / 2);
-      // Trouver quel segment est sous la flèche
-      var diff = (pointeAngle - a + 2 * Math.PI) % (2 * Math.PI);
-      var segIndex = Math.floor(diff / arc) % N;
-      return segIndex;
+    function lireSegment(a) {
+      var norm = ((a%(2*Math.PI))+2*Math.PI)%(2*Math.PI);
+      var pointe2 = (3*Math.PI/2);
+      var diff = (pointe2 - norm + 2*Math.PI)%(2*Math.PI);
+      return Math.floor(diff/arc)%N;
     }
 
     function animate(ts) {
       if (!startTime) startTime = ts;
-      var elapsed = ts - startTime;
-      var progress = Math.min(elapsed / duration, 1);
-      var eased = easeOut(progress);
-
-      currentAngle = startAngle + totalRotation * eased;
-      dessinerRoue(currentAngle);
-
-      if (progress < 1) {
-        requestAnimationFrame(animate);
-      } else {
-        // Lire le segment RÉEL sous la flèche
-        var segReel = lireSegmentActuel(currentAngle);
+      var p = Math.min((ts-startTime)/duration, 1);
+      angle = startAngle + totalRot * ease(p);
+      dessiner(angle);
+      if (p<1) { requestAnimationFrame(animate); }
+      else {
+        var segReel = lireSegment(angle);
         var gagneFinal = SEGMENTS[segReel].gagne;
-        currentAngle = currentAngle % (2 * Math.PI);
         spinning = false;
-        afficherResultat(gagneFinal);
+        angle = angle % (2*Math.PI);
+        afficher(gagneFinal);
       }
     }
-
     requestAnimationFrame(animate);
   };
 
-  // ══ RÉSULTAT ══
-  function afficherResultat(gagne) {
-    var code = gagne ? genererCode() : null;
+  // ── Afficher résultat ──
+  function genCode() {
+    var c="MARCO-", s="ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+    for(var i=0;i<6;i++) c+=s[Math.floor(Math.random()*s.length)];
+    return c;
+  }
+
+  function afficher(gagne) {
+    var code = gagne ? genCode() : null;
     marquerJoue(gagne, code);
 
-    // Envoyer email à Marco
+    // Email
     var now = new Date();
-    var dateStr = now.toLocaleDateString("fr-FR", {day:"numeric",month:"long",year:"numeric",hour:"2-digit",minute:"2-digit"});
-    emailjs.send("service_8pt08ad", "template_7qvb6yz", {
-      prenom:   userData.prenom,
-      nom:      userData.nom,
-      email:    userData.email,
-      ddn:      userData.ddn,
+    var dateStr = now.toLocaleDateString("fr-FR",{day:"numeric",month:"long",year:"numeric",hour:"2-digit",minute:"2-digit"});
+    emailjs.send(EMAILJS_SERVICE, EMAILJS_TEMPLATE, {
+      prenom: userData.prenom, nom: userData.nom,
+      email: userData.email, ddn: userData.ddn,
       resultat: gagne ? "GAGNE - 5 minutes offertes" : "PERDU",
-      code:     code || "Aucun",
-      date:     dateStr
-    }).catch(function(err){ console.error("EmailJS error:", err); });
+      code: code||"Aucun", date: dateStr
+    }).catch(function(e){console.error(e);});
 
-    document.getElementById("marco-wheel-section").style.display = "none";
-    var res = document.getElementById("marco-result-section");
+    // Confettis si gagné
+    if (gagne) lancerConfettis();
+
+    document.getElementById("main-section").style.display = "none";
+    var res = document.getElementById("result-section");
     res.style.display = "block";
 
     if (gagne) {
-      // Confettis !
-      lancerConfettis();
       res.innerHTML =
         "<span class='result-icon'>🎉</span>" +
         "<div class='result-titre gagne'>Félicitations " + userData.prenom + " !</div>" +
-        "<p class='result-txt'>Les astres vous sourient ! Vous avez gagné <strong>5 minutes offertes</strong> pour votre prochaine consultation avec Marco.</p>" +
+        "<p class='result-txt'>Les astres vous sourient ! Vous avez gagné <strong>5 minutes offertes</strong> avec Marco Medium.</p>" +
         "<div class='code-box'>" +
           "<div class='code-lbl'>Votre code cadeau</div>" +
-          "<div class='code-val' id='mp-code'>" + code + "</div>" +
-          "<button class='code-copy' onclick='copierCode(\"" + code + "\")'> Copier le code</button>" +
+          "<div class='code-val' id='le-code'>" + code + "</div>" +
+          "<button class='btn-copy' onclick='copier(\"" + code + "\")'>📋 Copier le code</button>" +
+          "<p class='code-cond'>* Valable pour une consultation de CHF 20.- min · Non cumulable · 1 fois</p>" +
         "</div>" +
-        "<p class='code-conditions'>Valable pour une consultation de 10 min minimum (CHF 20.-) · Non cumulable · 1 fois par consultation</p>" +
-        "<button class='marco-fermer' onclick='marcoClose()'>Fermer ✦</button>";
+        "<button class='btn-fermer' onclick='fermer()'>Fermer ✦</button>";
     } else {
       res.innerHTML =
         "<span class='result-icon'>🔮</span>" +
         "<div class='result-titre perdu'>Pas de chance aujourd'hui, " + userData.prenom + "…</div>" +
         "<p class='result-txt'>Les étoiles réservent leur magie pour une prochaine fois. Revenez demain pour retenter votre chance !</p>" +
-        "<p style='font-family:\"Cormorant Garamond\",serif;font-style:italic;color:rgba(201,168,224,0.5);font-size:0.85rem;margin-bottom:16px;'>Vous pouvez tout de même consulter Marco dès maintenant au CHF 2.-/min.</p>" +
-        "<button class='marco-fermer' onclick='marcoClose()'>Fermer ✦</button>";
+        "<p style='font-family:\"Cormorant Garamond\",serif;font-style:italic;color:rgba(201,168,224,0.45);font-size:0.82rem;margin-bottom:14px;'>Consultez Marco dès maintenant au CHF 2.-/min.</p>" +
+        "<button class='btn-fermer' onclick='fermer()'>Fermer ✦</button>";
     }
   }
 
-  // ══ CONFETTIS ══
+  // ── Confettis ──
   function lancerConfettis() {
-    var wrap = document.getElementById("confettiWrap");
-    var colors = ["#c9a8e0","#7dcea0","#f0e6ff","#a78bcc","#5dade2"];
-    for (var i = 0; i < 35; i++) {
-      (function(i) {
-        setTimeout(function() {
+    var w = document.getElementById("confetti");
+    var cols = ["#c9a8e0","#7dcea0","#f0e6ff","#a78bcc","#5dade2"];
+    for (var i=0;i<40;i++) {
+      (function(i){
+        setTimeout(function(){
           var c = document.createElement("div");
           c.className = "confetti";
-          c.style.left = Math.random() * 100 + "%";
+          c.style.left = Math.random()*100+"%";
           c.style.top = "-10px";
-          c.style.background = colors[Math.floor(Math.random() * colors.length)];
-          c.style.animationDelay = (Math.random() * 0.5) + "s";
-          c.style.animationDuration = (1.2 + Math.random() * 1) + "s";
-          c.style.transform = "rotate(" + Math.random()*360 + "deg)";
-          wrap.appendChild(c);
-          setTimeout(function(){ c.remove(); }, 2500);
-        }, i * 40);
+          c.style.background = cols[Math.floor(Math.random()*cols.length)];
+          c.style.animationDuration = (1.2+Math.random()*0.8)+"s";
+          c.style.animationDelay = (Math.random()*0.4)+"s";
+          w.appendChild(c);
+          setTimeout(function(){c.remove();},2500);
+        },i*35);
       })(i);
     }
   }
 
-  // ══ COPIER CODE ══
-  window.copierCode = function(code) {
+  // ── Copier ──
+  window.copier = function(code) {
     if (navigator.clipboard) {
       navigator.clipboard.writeText(code).then(function(){
-        var btn = document.querySelector(".code-copy");
-        if (btn) { btn.textContent = "✓ Copié !"; btn.style.color = "#7dcea0"; }
+        var b=document.querySelector(".btn-copy");
+        if(b){b.textContent="✓ Copié !";b.style.color="#7dcea0";}
       });
-    } else {
-      var t = document.createElement("textarea");
-      t.value = code; document.body.appendChild(t);
-      t.select(); document.execCommand("copy"); document.body.removeChild(t);
-      var btn = document.querySelector(".code-copy");
-      if (btn) { btn.textContent = "✓ Copié !"; btn.style.color = "#7dcea0"; }
     }
   };
 
-  // ══ FERMER ══
-  window.marcoClose = function() {
-    document.getElementById("marco-popup-overlay").classList.remove("visible");
-    document.getElementById("marco-popup-overlay").style.display = "none";
-    document.body.style.pointerEvents = "none"; // rendre l'iframe transparente
+  // ── Fermer ──
+  window.fermer = function() {
+    document.getElementById("overlay").classList.remove("on");
+    document.body.style.pointerEvents = "none";
   };
 
   // Fermer en cliquant dehors
-  document.getElementById("marco-popup-overlay").addEventListener("click", function(e) {
-    if (e.target === this) marcoClose();
+  document.getElementById("overlay").addEventListener("click", function(e){
+    if(e.target===this) fermer();
   });
 
-  // ══ LANCEMENT AUTOMATIQUE ══
-  // Si déjà joué : on masque tout de suite
-  // Sinon : on affiche après 3 secondes
-  if (aDejaJoue()) {
-    // Masquer l'overlay et désactiver pointer-events sur l'iframe
-    document.getElementById("marco-popup-overlay").style.display = "none";
+  // ── Lancement ──
+  if (dejaJoue()) {
     document.body.style.pointerEvents = "none";
   } else {
-    document.body.style.pointerEvents = "none"; // transparent au départ
-    setTimeout(function() {
+    setTimeout(function(){
       document.body.style.pointerEvents = "all";
-      document.getElementById("marco-popup-overlay").classList.add("visible");
+      document.getElementById("overlay").classList.add("on");
     }, 3000);
   }
 
