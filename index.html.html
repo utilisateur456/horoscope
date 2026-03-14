@@ -1,0 +1,169 @@
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+
+<style>
+#marco-horo * { box-sizing: border-box; margin: 0; padding: 0; }
+#marco-horo {
+  font-family: 'Cormorant Garamond', serif;
+  background: linear-gradient(135deg, #120d24, #1c1535);
+  border: 1px solid rgba(201,168,76,0.25);
+  border-radius: 6px;
+  padding: 36px 32px;
+  max-width: 620px;
+  margin: 0 auto;
+  color: #e8dfc8;
+}
+#marco-horo .ornament { text-align:center; font-size:1.3rem; color:#7a5f25; letter-spacing:0.6em; margin-bottom:28px; }
+#marco-horo label { display:block; font-family:'Cinzel Decorative',cursive; font-size:0.68rem; letter-spacing:0.22em; text-transform:uppercase; color:#c9a84c; margin-bottom:9px; }
+#marco-horo select, #marco-horo input[type=text] { width:100%; padding:13px 16px; background:rgba(6,4,15,0.7); border:1px solid rgba(201,168,76,0.28); border-radius:3px; color:#e8dfc8; font-family:'Cormorant Garamond',serif; font-size:1rem; outline:none; appearance:none; -webkit-appearance:none; margin-bottom:20px; }
+#marco-horo select option { background:#0b0818; }
+#marco-horo .period-row { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:20px; }
+#marco-horo .pbtn { padding:13px 8px; background:rgba(6,4,15,0.6); border:1px solid rgba(201,168,76,0.2); border-radius:3px; color:#8a7d6a; font-family:'Cormorant Garamond',serif; font-size:0.95rem; cursor:pointer; text-align:center; transition:all .3s; }
+#marco-horo .pbtn.active { background:rgba(201,168,76,0.1); border-color:#c9a84c; color:#c9a84c; }
+#marco-horo .divider { display:flex; align-items:center; gap:12px; margin:24px 0; color:#7a5f25; }
+#marco-horo .divider::before, #marco-horo .divider::after { content:''; flex:1; height:1px; background:linear-gradient(90deg,transparent,rgba(201,168,76,.3),transparent); }
+#marco-horo .submit-btn { width:100%; padding:16px; background:transparent; border:1px solid #c9a84c; border-radius:3px; color:#c9a84c; font-family:'Cinzel Decorative',cursive; font-size:0.85rem; letter-spacing:.15em; cursor:pointer; }
+#marco-horo .loading { display:none; text-align:center; padding:32px 0; }
+#marco-horo .ball { font-size:2.6rem; display:block; margin-bottom:12px; animation:mhfloat 2s ease-in-out infinite; }
+@keyframes mhfloat { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-7px)} }
+#marco-horo .load-txt { font-style:italic; color:#8a7d6a; }
+#marco-horo .erreur { display:none; padding:13px 15px; margin-top:14px; border:1px solid rgba(220,80,80,.4); border-radius:3px; background:rgba(220,80,80,.07); color:#e08888; font-style:italic; }
+#marco-horo .result { display:none; margin-top:28px; }
+#marco-horo .res-head { display:flex; align-items:center; gap:14px; margin-bottom:18px; }
+#marco-horo .res-sign { font-size:2.4rem; }
+#marco-horo .res-name { font-family:'Cinzel Decorative',cursive; font-size:1rem; color:#c9a84c; }
+#marco-horo .res-period { font-style:italic; color:#8a7d6a; font-size:.85rem; }
+#marco-horo .horo-txt { font-size:1.1rem; line-height:1.85; font-style:italic; border-left:2px solid rgba(201,168,76,.3); padding-left:18px; margin-bottom:20px; }
+#marco-horo .domains { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-bottom:20px; }
+#marco-horo .dom { background:rgba(6,4,15,.5); border:1px solid rgba(201,168,76,.15); border-radius:3px; padding:12px 8px; text-align:center; }
+#marco-horo .dom-icon { font-size:1.2rem; display:block; margin-bottom:5px; }
+#marco-horo .dom-name { font-size:.62rem; letter-spacing:.12em; text-transform:uppercase; color:#8a7d6a; margin-bottom:5px; }
+#marco-horo .dom-stars { color:#c9a84c; font-size:.65rem; }
+#marco-horo .conseil { padding:14px; border:1px solid rgba(201,168,76,.15); border-radius:3px; text-align:center; margin-bottom:20px; }
+#marco-horo .conseil-lbl { font-size:.65rem; letter-spacing:.2em; text-transform:uppercase; color:#7a5f25; }
+#marco-horo .conseil-txt { margin-top:7px; font-style:italic; color:#8a7d6a; }
+#marco-horo .retry { display:block; margin:0 auto; padding:9px 24px; background:transparent; border:1px solid rgba(201,168,76,.3); border-radius:3px; color:#8a7d6a; font-family:'Cormorant Garamond',serif; cursor:pointer; }
+</style>
+
+<div id="marco-horo">
+  <div class="ornament">&#10022; &#10023; &#10022;</div>
+  <div id="mh-form">
+    <label>Votre Signe Zodiacal</label>
+    <select id="mh-sign">
+      <option value="" disabled selected>&#8212; Choisissez votre signe &#8212;</option>
+      <option value="Belier|Feu">&#9800; Belier (21 mars &#8211; 19 avril)</option>
+      <option value="Taureau|Terre">&#9801; Taureau (20 avril &#8211; 20 mai)</option>
+      <option value="Gemeaux|Air">&#9802; Gemeaux (21 mai &#8211; 20 juin)</option>
+      <option value="Cancer|Eau">&#9803; Cancer (21 juin &#8211; 22 juillet)</option>
+      <option value="Lion|Feu">&#9804; Lion (23 juillet &#8211; 22 aout)</option>
+      <option value="Vierge|Terre">&#9805; Vierge (23 aout &#8211; 22 sept.)</option>
+      <option value="Balance|Air">&#9806; Balance (23 sept. &#8211; 22 oct.)</option>
+      <option value="Scorpion|Eau">&#9807; Scorpion (23 oct. &#8211; 21 nov.)</option>
+      <option value="Sagittaire|Feu">&#9808; Sagittaire (22 nov. &#8211; 21 dec.)</option>
+      <option value="Capricorne|Terre">&#9809; Capricorne (22 dec. &#8211; 19 janv.)</option>
+      <option value="Verseau|Air">&#9810; Verseau (20 janv. &#8211; 18 fev.)</option>
+      <option value="Poissons|Eau">&#9811; Poissons (19 fev. &#8211; 20 mars)</option>
+    </select>
+    <label>Votre Prenom <span style="color:#8a7d6a;font-size:.6rem;">(optionnel)</span></label>
+    <input type="text" id="mh-prenom" placeholder="Pour une lecture personnalisee...">
+    <label>Periode de la Lecture</label>
+    <div class="period-row">
+      <button class="pbtn active" id="btn-jour">&#9728; Aujourd&#39;hui</button>
+      <button class="pbtn" id="btn-semaine">&#9790; Cette semaine</button>
+    </div>
+    <div class="divider">&#10022;</div>
+    <button class="submit-btn" id="mh-submit">&#10023; Reveler Mon Horoscope &#10023;</button>
+  </div>
+  <div class="erreur" id="mh-err"></div>
+  <div class="loading" id="mh-load">
+    <span class="ball">&#128302;</span>
+    <p class="load-txt" id="mh-load-txt">Les astres s&#39;alignent pour vous...</p>
+  </div>
+  <div class="result" id="mh-result"></div>
+</div>
+
+<script>
+(function(){
+  var WORKER = "https://super-band-24a0.marcomedium-com.workers.dev";
+  var EMOJIS = {"Belier":"&#9800;","Taureau":"&#9801;","Gemeaux":"&#9802;","Cancer":"&#9803;","Lion":"&#9804;","Vierge":"&#9805;","Balance":"&#9806;","Scorpion":"&#9807;","Sagittaire":"&#9808;","Capricorne":"&#9809;","Verseau":"&#9810;","Poissons":"&#9811;"};
+  var MSGS = ["Les astres s&#39;alignent pour vous...","Marco consulte les etoiles...","L&#39;univers prepare votre message...","Les planetes revelent leurs secrets..."];
+  var periode = "jour";
+  var loadT;
+
+  document.getElementById("btn-jour").addEventListener("click", function(){
+    periode = "jour";
+    document.getElementById("btn-jour").classList.add("active");
+    document.getElementById("btn-semaine").classList.remove("active");
+  });
+
+  document.getElementById("btn-semaine").addEventListener("click", function(){
+    periode = "semaine";
+    document.getElementById("btn-semaine").classList.add("active");
+    document.getElementById("btn-jour").classList.remove("active");
+  });
+
+  document.getElementById("mh-submit").addEventListener("click", function(){
+    document.getElementById("mh-err").style.display = "none";
+    var signVal = document.getElementById("mh-sign").value;
+    var prenom = document.getElementById("mh-prenom").value.trim();
+    if(!signVal){
+      var e = document.getElementById("mh-err");
+      e.textContent = "Veuillez choisir votre signe zodiacal.";
+      e.style.display = "block";
+      return;
+    }
+    var parts = signVal.split("|");
+    var signName = parts[0];
+    var element = parts[1];
+    var emoji = EMOJIS[signName] || "&#10022;";
+    var today = new Date().toLocaleDateString("fr-FR",{weekday:"long",day:"numeric",month:"long",year:"numeric"});
+    var periodeTitle = periode === "jour" ? "Horoscope du jour - " + today : "Horoscope de la semaine";
+
+    document.getElementById("mh-form").style.display = "none";
+    document.getElementById("mh-load").style.display = "block";
+
+    var idx = 0;
+    loadT = setInterval(function(){
+      idx = (idx+1) % MSGS.length;
+      document.getElementById("mh-load-txt").innerHTML = MSGS[idx];
+    }, 1800);
+
+    fetch(WORKER, {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({signName:signName, element:element, prenom:prenom, periode:periode})
+    })
+    .then(function(res){ return res.json().then(function(d){ return {ok:res.ok, data:d}; }); })
+    .then(function(r){
+      clearInterval(loadT);
+      document.getElementById("mh-load").style.display = "none";
+      if(!r.ok || r.data.error) throw new Error(r.data.error || "Erreur");
+      var h = r.data;
+      function stars(n){ n=Math.min(5,Math.max(1,parseInt(n)||3)); return "&#9733;".repeat(n)+"&#9734;".repeat(5-n); }
+      var result = document.getElementById("mh-result");
+      result.innerHTML =
+        "<div class='res-head'><div class='res-sign'>"+emoji+"</div><div><div class='res-name'>"+(prenom?prenom+" &middot; ":"")+signName+"</div><div class='res-period'>"+periodeTitle+"</div></div></div>"+
+        "<p class='horo-txt'>"+h.texte+"</p>"+
+        "<div class='domains'>"+
+          "<div class='dom'><span class='dom-icon'>&#128149;</span><div class='dom-name'>Amour</div><div class='dom-stars'>"+stars(h.amour)+"</div></div>"+
+          "<div class='dom'><span class='dom-icon'>&#9889;</span><div class='dom-name'>Travail</div><div class='dom-stars'>"+stars(h.travail)+"</div></div>"+
+          "<div class='dom'><span class='dom-icon'>&#127808;</span><div class='dom-name'>Chance</div><div class='dom-stars'>"+stars(h.chance)+"</div></div>"+
+        "</div>"+
+        "<div class='conseil'><div class='conseil-lbl'>Message de Marco</div><p class='conseil-txt'>"+h.conseil+"</p></div>"+
+        "<button class='retry' id='mh-retry'>&#10022; Nouvelle Lecture &#10022;</button>";
+      result.style.display = "block";
+      document.getElementById("mh-retry").addEventListener("click", function(){
+        result.style.display = "none";
+        document.getElementById("mh-form").style.display = "block";
+      });
+    })
+    .catch(function(err){
+      clearInterval(loadT);
+      document.getElementById("mh-load").style.display = "none";
+      document.getElementById("mh-form").style.display = "block";
+      var e = document.getElementById("mh-err");
+      e.textContent = "Les astres sont troubles : " + err.message;
+      e.style.display = "block";
+    });
+  });
+})();
+</script>
