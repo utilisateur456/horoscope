@@ -657,8 +657,8 @@
   // ══ FERMER ══
   window.marcoClose = function() {
     document.getElementById("marco-popup-overlay").classList.remove("visible");
-    // Désactiver pointer-events sur l'iframe
-    window.parent.postMessage('marco-popup-hide', '*');
+    document.getElementById("marco-popup-overlay").style.display = "none";
+    document.body.style.pointerEvents = "none"; // rendre l'iframe transparente
   };
 
   // Fermer en cliquant dehors
@@ -667,19 +667,19 @@
   });
 
   // ══ LANCEMENT AUTOMATIQUE ══
-  function lancerPopup() {
-    if (aDejaJoue()) return; // Déjà joué aujourd'hui
-    document.getElementById("marco-popup-overlay").classList.add("visible");
+  // Si déjà joué : on masque tout de suite
+  // Sinon : on affiche après 3 secondes
+  if (aDejaJoue()) {
+    // Masquer l'overlay et désactiver pointer-events sur l'iframe
+    document.getElementById("marco-popup-overlay").style.display = "none";
+    document.body.style.pointerEvents = "none";
+  } else {
+    document.body.style.pointerEvents = "none"; // transparent au départ
+    setTimeout(function() {
+      document.body.style.pointerEvents = "all";
+      document.getElementById("marco-popup-overlay").classList.add("visible");
+    }, 3000);
   }
-
-  // Apparition après 3 secondes
-  setTimeout(function() {
-    if (!aDejaJoue()) {
-      // Activer pointer-events sur l'iframe
-      window.parent.postMessage('marco-popup-show', '*');
-      lancerPopup();
-    }
-  }, 3000);
 
 })();
 </script>
