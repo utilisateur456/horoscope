@@ -46,14 +46,14 @@ html, body {
 #popup {
   background: linear-gradient(135deg, #4a1a6b, #2d0850);
   border: 1px solid rgba(201,168,224,0.3);
-  border-radius: 16px;
-  padding: 16px 20px;
-  max-width: 500px;
+  border-radius: 12px;
+  padding: 14px 18px;
+  max-width: 480px;
   width: 100%;
   position: relative;
-  box-shadow: 0 0 80px rgba(100,30,160,0.5);
+  box-shadow: 0 0 60px rgba(100,30,160,0.5);
   animation: popIn 0.55s cubic-bezier(0.22,1,0.36,1);
-  margin-top: 8px;
+  margin-top: 4px;
 }
 @keyframes popIn {
   from { opacity:0; transform:scale(0.88) translateY(20px); }
@@ -63,8 +63,8 @@ html, body {
 #btn-close {
   display: block;
   width: 100%;
-  margin-top: 10px;
-  padding: 10px;
+  margin-top: 6px;
+  padding: 7px;
   background: transparent;
   border: 1px solid rgba(201,168,224,0.3);
   border-radius: 4px;
@@ -78,12 +78,12 @@ html, body {
 #btn-close:hover { border-color:#c9a8e0; color:#c9a8e0; }
 
 /* Étoiles */
-.stars { text-align:center; font-size:0.9rem; color:rgba(201,168,224,0.4); letter-spacing:0.5em; margin-bottom:4px; }
+.stars { text-align:center; font-size:0.8rem; color:rgba(201,168,224,0.4); letter-spacing:0.4em; margin-bottom:2px; }
 
 /* Titre */
 .titre {
   font-family:'Cinzel Decorative',cursive;
-  font-size:clamp(0.9rem,3vw,1.1rem);
+  font-size:0.95rem;
   color:#c9a8e0; text-align:center;
   text-shadow:0 0 20px rgba(201,168,224,0.4);
   margin-bottom:2px;
@@ -93,7 +93,7 @@ html, body {
 .offre-grande {
   text-align:center;
   font-family:'Cinzel Decorative',cursive;
-  font-size:clamp(1rem,3.5vw,1.4rem);
+  font-size:1.3rem;
   color:#7dcea0;
   text-shadow:0 0 25px rgba(125,206,160,0.5);
   margin: 2px 0 2px;
@@ -103,9 +103,9 @@ html, body {
   text-align:center;
   font-family:'Cormorant Garamond',serif;
   font-style:italic;
-  font-size:0.72rem;
+  font-size:0.68rem;
   color:rgba(201,168,224,0.45);
-  margin-bottom:10px;
+  margin-bottom:6px;
 }
 
 /* Layout 2 colonnes */
@@ -155,17 +155,17 @@ html, body {
 .form-col label {
   display:block;
   font-family:'Cinzel Decorative',cursive;
-  font-size:0.58rem;
-  letter-spacing:0.15em;
+  font-size:0.55rem;
+  letter-spacing:0.12em;
   text-transform:uppercase;
   color:#c9a8e0;
-  margin-bottom:4px;
-  margin-top:10px;
+  margin-bottom:3px;
+  margin-top:6px;
 }
 .form-col label:first-child { margin-top:0; }
 .form-col input {
   width:100%;
-  padding:6px 10px;
+  padding:5px 10px;
   background:rgba(6,4,15,0.6);
   border:1px solid rgba(201,168,224,0.25);
   border-radius:4px;
@@ -180,15 +180,15 @@ html, body {
 /* Bouton spin */
 .btn-spin {
   width:100%;
-  margin-top:8px;
-  padding:10px;
+  margin-top:6px;
+  padding:8px;
   background:transparent;
   border:1px solid #c9a8e0;
   border-radius:4px;
   color:#c9a8e0;
   font-family:'Cinzel Decorative',cursive;
-  font-size:0.75rem;
-  letter-spacing:0.1em;
+  font-size:0.7rem;
+  letter-spacing:0.08em;
   cursor:pointer;
   transition:all 0.3s;
 }
