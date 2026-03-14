@@ -37,6 +37,9 @@ html, body {
   pointer-events: all;
   overflow-y: auto;
 }
+#overlay * {
+  pointer-events: all !important;
+}
 #overlay.on { display: flex; animation: fadeIn 0.5s ease; }
 @keyframes fadeIn { from{opacity:0} to{opacity:1} }
 
@@ -58,12 +61,21 @@ html, body {
 }
 
 #btn-close {
-  position: absolute; top:12px; right:16px;
-  background:none; border:none;
-  color:rgba(201,168,224,0.5); font-size:1.3rem;
-  cursor:pointer; line-height:1;
+  display: block;
+  width: 100%;
+  margin-top: 10px;
+  padding: 10px;
+  background: transparent;
+  border: 1px solid rgba(201,168,224,0.3);
+  border-radius: 4px;
+  color: rgba(201,168,224,0.6);
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s;
+  text-align: center;
 }
-#btn-close:hover { color:#c9a8e0; }
+#btn-close:hover { border-color:#c9a8e0; color:#c9a8e0; }
 
 /* Étoiles */
 .stars { text-align:center; font-size:0.9rem; color:rgba(201,168,224,0.4); letter-spacing:0.5em; margin-bottom:4px; }
@@ -227,7 +239,7 @@ html, body {
 
 <div id="overlay">
   <div id="popup">
-    <button id="btn-close" onclick="fermer()">&#x2715;</button>
+
     <div class="confetti-wrap" id="confetti"></div>
 
     <div class="stars">&#10022; &#10023; &#10022;</div>
@@ -466,7 +478,9 @@ html, body {
   // ── Fermer ──
   window.fermer = function() {
     document.getElementById("overlay").classList.remove("on");
+    document.getElementById("overlay").style.display = "none";
     document.body.style.pointerEvents = "none";
+    document.documentElement.style.pointerEvents = "none";
   };
 
   // Fermer en cliquant dehors
