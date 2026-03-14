@@ -8,6 +8,30 @@
 <style>
   * { margin:0; padding:0; box-sizing:border-box; }
   body { background:#3d1560; font-family:Georgia,'Times New Roman',serif; min-height:100vh; padding:40px 20px; overflow-x:hidden; }
+  @media (max-width: 600px) {
+    body { padding: 16px 10px; }
+    .card { padding: 24px 14px !important; }
+    .eventail { height: 160px !important; }
+    .oracle-card { width: 58px !important; height: 95px !important; }
+    .oracle-card:nth-child(1) { left: calc(50% - 155px) !important; }
+    .oracle-card:nth-child(2) { left: calc(50% - 100px) !important; }
+    .oracle-card:nth-child(3) { left: calc(50% - 48px) !important; }
+    .oracle-card:nth-child(4) { left: calc(50% - 29px) !important; }
+    .oracle-card:nth-child(5) { left: calc(50% + 2px) !important; }
+    .oracle-card:nth-child(6) { left: calc(50% + 42px) !important; }
+    .oracle-card:nth-child(7) { left: calc(50% + 90px) !important; }
+    .cf-num-top { font-size: 0.65rem !important; }
+    .cf-name { font-size: 0.42rem !important; }
+    .cartes-choisies { gap: 10px !important; }
+    .carte-mini { width: 65px !important; height: 105px !important; }
+    .grille { grid-template-columns: 1fr !important; }
+    .titre { font-size: 1.2rem !important; }
+    .bloc-texte p { font-size: 1rem !important; }
+    .dom-block p { font-size: 0.95rem !important; }
+    .message-marco p { font-size: 0.95rem !important; }
+    .tirer-btn { font-size: 0.8rem !important; padding: 14px !important; }
+    input[type=text] { font-size: 1rem !important; padding: 12px 14px !important; }
+  }
   .card { background:linear-gradient(135deg,#4a1a6b,#3a1255); border:1px solid rgba(201,168,224,0.3); border-radius:8px; padding:44px 40px; max-width:700px; margin:0 auto; color:#f0e6ff; box-shadow:0 0 60px rgba(100,30,160,0.3); }
   .ornament { text-align:center; font-size:1.4rem; color:rgba(201,168,224,0.5); letter-spacing:0.6em; margin-bottom:12px; }
   .titre { text-align:center; font-family:'Cinzel Decorative',cursive; font-size:1.5rem; color:#c9a8e0; margin-bottom:8px; text-shadow:0 0 20px rgba(201,168,224,0.4); }
