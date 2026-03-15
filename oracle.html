@@ -377,7 +377,7 @@
       "{\"tendance\":\"2-3 phrases sur la tendance generale du jour avec les 3 cartes\",\"passe\":\"2 phrases sur ce que la carte du passe revele\",\"present\":\"2 phrases sur ce que la carte du present revele\",\"futur\":\"2 phrases sur ce que la carte du futur annonce\",\"amour\":\"2 phrases sur l amour\",\"travail\":\"2 phrases sur le travail\",\"finances\":\"2 phrases sur les finances\",\"sante\":\"2 phrases sur la sante et l energie\",\"conseil\":\"Un message spirituel profond et personnel de Marco base sur ces trois cartes\"}";
 
     fetch(WORKER, {method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify({type:"numerologie", promptCustom:prompt})})
-    .then(function(res){ return res.json().then(function(d){ return {ok:res.ok,data:d}; }); })
+    .then(function(res){ return res.json().then(function(d){ return {ok:res.ok,data:d.data}; }); })
     .then(function(r){
       clearInterval(loadT);
       document.getElementById("ora-load").style.display = "none";
