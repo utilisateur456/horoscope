@@ -230,7 +230,7 @@
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify({type:"numerologie", promptCustom:prompt})
     })
-    .then(function(res){ return res.json().then(function(d){ return {ok:res.ok,data:d}; }); })
+    .then(function(res){ return res.json().then(function(d){ return {ok:res.ok,data:d.data}; }); })
     .then(function(r){
       clearInterval(loadT);
       document.getElementById("num-load").style.display = "none";
